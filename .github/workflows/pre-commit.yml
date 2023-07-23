@@ -12,9 +12,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup PHP with PECL extension
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v3
+      #
+      - name: Setup PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           tools: php-cs-fixer, phpunit, rector, composer
-        run: cd www/auth-service | composer install | vendor/bin/rector process app --dry-run | vendor/bin/php-cs-fixer fix app --dry-run
+      - name: Build and check project
+        run: |
+          rector process app --dry-run | 
+          php-cs-fixer fix app --dry-run
+        working-directory: /www/auth-service/
