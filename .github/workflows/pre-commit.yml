@@ -1,0 +1,20 @@
+name: pre-commit
+
+on:
+  pull_request:
+    branches:
+      - '*'
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP with PECL extension
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: php-cs-fixer, phpunit, rector, composer
+        run: cd www/auth-service | composer install | vendor/bin/rector process app --dry-run | vendor/bin/php-cs-fixer fix app --dry-run
