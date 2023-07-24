@@ -1,31 +1,44 @@
 version: '3'
 services:
-    laravel.test:
+    nginx:
+        container_name: ${COMPOSE_PROJECT_NAME}_nginx
         build:
-            context: ./vendor/laravel/sail/runtimes/8.2
+            context: ./docker/nginx/
+        ports:
+            - '${NGINX_EXT_PORT}:80'
+        logging:
+            options:
+                max-size: 50m
+        restart: always
+        volumes:
+            - ./:/var/www/html
+            - phpsocket:/var/run
+    php-fpm:
+        container_name: ${COMPOSE_PROJECT_NAME}_php-fpm
+        build:
+            context: ./docker/php-fpm/
             dockerfile: Dockerfile
+            target: php81-fpm
             args:
-                WWWGROUP: '${WWWGROUP}'
-        image: sail-8.2/app
+                UID: '${WWWUSER}'
+                GID: '${WWWGROUP}'
         extra_hosts:
             - 'host.docker.internal:host-gateway'
-        ports:
-            - '${APP_PORT:-80}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+            - 'chat.loc:host-gateway'
         environment:
-            WWWUSER: '${WWWUSER}'
-            LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+            - TZ=Europe/Moscow
+        logging:
+            options:
+                max-size: 50m
+        restart: always
         volumes:
-            - '.:/var/www/html'
-        networks:
-            - sail
+            - ./:/var/www/html
+            - phpsocket:/var/run
         depends_on:
             - mysql
             - redis
     mysql:
+        container_name: ${COMPOSE_PROJECT_NAME}_mysql
         image: 'mysql/mysql-server:8.0'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
@@ -39,8 +52,6 @@ services:
         volumes:
             - 'sail-mysql:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
-        networks:
-            - sail
         healthcheck:
             test:
                 - CMD
@@ -50,13 +61,12 @@ services:
             retries: 3
             timeout: 5s
     redis:
+        container_name: ${COMPOSE_PROJECT_NAME}_redis
         image: 'redis:alpine'
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
             - 'sail-redis:/data'
-        networks:
-            - sail
         healthcheck:
             test:
                 - CMD
@@ -64,11 +74,9 @@ services:
                 - ping
             retries: 3
             timeout: 5s
-networks:
-    sail:
-        driver: bridge
 volumes:
     sail-mysql:
         driver: local
     sail-redis:
         driver: local
+    phpsocket:
