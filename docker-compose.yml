@@ -32,8 +32,8 @@ services:
                 max-size: 50m
         restart: always
         volumes:
-            - ./:/var/www/html
-            - phpsocket:/var/run
+            - './:/var/www/html'
+            - 'phpsocket:/var/run'
         depends_on:
             - mysql
             - redis
@@ -50,8 +50,7 @@ services:
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
-            - 'sail-mysql:/var/lib/mysql'
-            - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - './dockerdata/mysql:/var/lib/mysql'
         healthcheck:
             test:
                 - CMD
