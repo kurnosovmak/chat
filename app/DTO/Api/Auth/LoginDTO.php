@@ -18,7 +18,7 @@ class LoginDTO extends Data
     public static function rules(ValidationContext $context): array
     {
         return [
-            'email' => 'required|email|exists:users,email',
+            'email' => 'required|email',
             'password' => 'required|string|min:8',
         ];
     }
