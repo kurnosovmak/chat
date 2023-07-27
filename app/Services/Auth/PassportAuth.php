@@ -9,6 +9,7 @@ use http\Exception\RuntimeException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 use Psy\Exception\ThrowUpException;
 
 final class PassportAuth implements AuthContract
@@ -26,7 +27,10 @@ final class PassportAuth implements AuthContract
             'password' => $password,
             'scope' => '',
         ]);
-
+        if ($response->status() !== 200)
+        {
+            throw new AuthenticationException($response->json()['message']);
+        }
         return TokenDTO::from($response->json());
     }
 
@@ -39,6 +43,10 @@ final class PassportAuth implements AuthContract
             'client_secret' => $this->getClientSecret(),
             'scope' => '',
         ]);
+        if ($response->status() !== 200)
+        {
+            throw new AuthenticationException($response->json()['message']);
+        }
 
         return TokenDTO::from($response->json());
     }
