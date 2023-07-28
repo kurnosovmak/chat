@@ -10,6 +10,13 @@ services:
             options:
                 max-size: 50m
         restart: always
+        labels:
+            - traefik.backend=api
+            - traefik.frontend.rule=Host:api.chat-up.online
+            - traefik.docker.network=web
+            - traefik.port=80
+        networks:
+            - web
         volumes:
             - ./:/var/www/html
             - phpsocket:/var/run
@@ -79,3 +86,6 @@ volumes:
     sail-redis:
         driver: local
     phpsocket:
+networks:
+  web:
+    external: true
