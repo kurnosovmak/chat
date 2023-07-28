@@ -14,7 +14,6 @@ services:
             - traefik.backend=api
             - traefik.frontend.rule=Host:api.chat-up.online
             - traefik.docker.network=web
-            - 'traefik.port=${NGINX_EXT_PORT}'
         networks:
             - web
             - in
