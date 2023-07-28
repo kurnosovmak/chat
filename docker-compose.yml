@@ -32,6 +32,8 @@ services:
                 GID: '${WWWGROUP}'
         networks:
             - in
+        labels:
+            - traefik.enable=false
         extra_hosts:
             - 'host.docker.internal:host-gateway'
             - 'chat.loc:host-gateway'
@@ -63,6 +65,8 @@ services:
             - in
         volumes:
             - './dockerdata/mysql:/var/lib/mysql'
+        labels:
+            - traefik.enable=false
         healthcheck:
             test:
                 - CMD
@@ -76,6 +80,8 @@ services:
         image: 'redis:alpine'
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
+        labels:
+            - traefik.enable=false
         networks:
             - in
         volumes:
