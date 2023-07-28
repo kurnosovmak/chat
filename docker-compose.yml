@@ -17,6 +17,7 @@ services:
             - traefik.port=80
         networks:
             - web
+            - in
         volumes:
             - ./:/var/www/html
             - phpsocket:/var/run
@@ -29,6 +30,8 @@ services:
             args:
                 UID: '${WWWUSER}'
                 GID: '${WWWGROUP}'
+        networks:
+            - in
         extra_hosts:
             - 'host.docker.internal:host-gateway'
             - 'chat.loc:host-gateway'
@@ -56,6 +59,8 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        networks:
+            - in
         volumes:
             - './dockerdata/mysql:/var/lib/mysql'
         healthcheck:
@@ -71,6 +76,8 @@ services:
         image: 'redis:alpine'
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
+        networks:
+            - in
         volumes:
             - 'sail-redis:/data'
         healthcheck:
@@ -89,3 +96,6 @@ volumes:
 networks:
   web:
     external: true
+  in:
+    external: false
+
