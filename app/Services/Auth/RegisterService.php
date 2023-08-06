@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Auth;
 
-use app\DTO\Api\Auth\RegisterDTO;
+use App\DTO\Api\Auth\RegisterDTO;
 use App\Models\User;
 
 
@@ -14,8 +14,8 @@ final class RegisterService
     {
         $user = new User( [
             'name' => $registerDTO->name,
-            'surname' => $registerDTO->surname,
-            'thirdName' => $registerDTO->thirdName,
+            'family' => $registerDTO->family,
+            'patronymic' => $registerDTO->patronymic,
             'email' => $registerDTO->email,
             'password' => $registerDTO->password,
         ]);

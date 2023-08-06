@@ -1,6 +1,8 @@
 <?php
 
-namespace app\DTO\Api\Auth;
+declare(strict_types=1);
+
+namespace App\DTO\Api\Auth;
 
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
@@ -10,8 +12,8 @@ class RegisterDTO extends Data
 {
     public function __construct(
         public readonly string $name,
-        public readonly string $surname,
-        public readonly string $thirdName,
+        public readonly string $family,
+        public readonly string $patronymic,
         public readonly string $email,
         public readonly string $password,
     )
@@ -22,8 +24,8 @@ class RegisterDTO extends Data
     {
         return [
             'name' => ['required','string','max:255'],
-            'surname' => ['required', 'string','max:255'],
-            'thirdName', ['string','max:255'],
+            'family' => ['required', 'string','max:255'],
+            'patronymic', ['string','max:255'],
             'email' => ['required', 'email', 'unique:'.app(User::class)->getTable()],
             'password' => ['required', 'string', 'min:8' ],
         ];

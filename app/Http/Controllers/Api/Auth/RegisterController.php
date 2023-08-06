@@ -1,13 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\Auth;
 
 use App\DTO\Api\Auth\RegisterDTO;
-use App\DTO\Api\Auth\RefreshDTO;
 use App\Services\Auth\RegisterService;
 use Illuminate\Http\JsonResponse;
-use App\Models\User;
-use Illuminate\Http\Request;
 
 class RegisterController
 {
