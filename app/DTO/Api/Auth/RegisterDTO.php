@@ -13,7 +13,7 @@ class RegisterDTO extends Data
     public function __construct(
         public readonly string $name,
         public readonly string $family,
-        public readonly string $patronymic,
+        public readonly ?string $patronymic,
         public readonly string $email,
         public readonly string $password,
     )
@@ -26,7 +26,7 @@ class RegisterDTO extends Data
             'name' => ['required','string','max:255'],
             'family' => ['required', 'string','max:255'],
             'patronymic', ['string','max:255'],
-            'email' => ['required', 'email', 'unique:'.app(User::class)->getTable()],
+            'email' => ['required', 'email'],
             'password' => ['required', 'string', 'min:8' ],
         ];
     }

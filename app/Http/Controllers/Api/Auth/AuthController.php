@@ -34,6 +34,6 @@ final class AuthController
     public function logout(): JsonResponse
     {
         $this->auth->logout();
-        return response()->json(status: 205);
+        return response()->json(status: 204);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use App\Services\Auth\DTO\TokenDTO;
 use http\Exception\RuntimeException;
 use Illuminate\Auth\AuthenticationException;
@@ -19,6 +20,14 @@ final class PassportAuth implements AuthContract
 
     public function login(string $login, string $password): TokenDTO
     {
+        $user = User::query()->where('email', $login)->first();
+
+        if(!$user) {
+            throw new AuthenticationException('User not found');
+        }
+        if(!$user->hasVerifiedEmail()) {
+            throw new AuthenticationException('User email is not verified');
+        }
         $response = Http::asForm()->asJson()->timeout(self::TIMEOUT)->post($this->getAppUrl() . '/oauth/token', [
             'grant_type' => 'password',
             'client_id' => $this->getClientId(),

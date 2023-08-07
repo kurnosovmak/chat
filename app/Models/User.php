@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const MAX_ATTEMPTS_COUNT = 3;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +32,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'code',
+        'attempts_count',
         'password',
         'remember_token',
     ];
