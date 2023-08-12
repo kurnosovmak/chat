@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Console\Commands\Roles;
 
 use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Console\Command;
 
-class AddRoleToUserCommand extends Command
+final class AddRoleToUserCommand extends Command
 {
     const ROLE_SLUG_FIELD = 'role_slug';
     const USER_ID_FIELD = 'user_id';
