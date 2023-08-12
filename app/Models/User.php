@@ -87,19 +87,19 @@ class User extends Authenticatable
     public function name(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => ucfirst(strtolower(str_replace(' ', '', ($value)))),
+            set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
     public function family(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => ucfirst(strtolower(str_replace(' ', '', ($value)))),
+            set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
     public function patronymic(): Attribute
     {
         return Attribute::make(
-            set: fn (string $value) => ucfirst(strtolower(str_replace(' ', '', ($value)))),
+            set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
 }

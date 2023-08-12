@@ -23,7 +23,6 @@ final class AuthController
            'data' => $token->toArray(),
         ]);
     }
-
     public function refresh(RefreshDTO $refreshDTO): JsonResponse
     {
         $token = $this->auth->refresh($refreshDTO->refresh_token);
