@@ -17,6 +17,7 @@ final class AuthController
 
     public function login(LoginDTO $loginDTO): JsonResponse
     {
+
         $token = $this->auth->login($loginDTO->email, $loginDTO->password);
         return response()->json([
            'data' => $token->toArray(),
