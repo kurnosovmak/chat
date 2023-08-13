@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 /**
  * App\Models\User
@@ -46,9 +48,10 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasSlug;
 
     public const MAX_ATTEMPTS_COUNT = 3;
+    const SLUG_NAME_FIELD = 'slug';
 
     /**
      * The attributes that are mass assignable.
@@ -75,6 +78,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = [
+        'first_char_name_and_family',
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -91,16 +98,38 @@ class User extends Authenticatable
             set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
+
     public function family(): Attribute
     {
         return Attribute::make(
             set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
+
     public function patronymic(): Attribute
     {
         return Attribute::make(
             set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
+    }
+
+    public function firstCharNameAndFamily(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => strtolower(substr($this->name, 0, 1) . $this->family),
+        );
+    }
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['first_char_name_and_family'])
+            ->saveSlugsTo(self::SLUG_NAME_FIELD)
+            ->usingSeparator('');
+    }
+
+    public function getRouteKeyName()
+    {
+        return self::SLUG_NAME_FIELD;
     }
 }
