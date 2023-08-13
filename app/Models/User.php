@@ -51,6 +51,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, HasRoles, HasSlug;
 
     public const MAX_ATTEMPTS_COUNT = 3;
+    const SLUG_NAME_FIELD = 'slug';
 
     /**
      * The attributes that are mass assignable.
@@ -123,12 +124,12 @@ class User extends Authenticatable
     {
         return SlugOptions::create()
             ->generateSlugsFrom(['first_char_name_and_family'])
-            ->saveSlugsTo('slug')
+            ->saveSlugsTo(self::SLUG_NAME_FIELD)
             ->usingSeparator('');
     }
 
     public function getRouteKeyName()
     {
-        return 'slug';
+        return self::SLUG_NAME_FIELD;
     }
 }
