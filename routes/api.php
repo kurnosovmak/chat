@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\Messenger\MessengerController;
 use App\Http\Controllers\Api\Profile\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,13 @@ Route::prefix('v1')->name('v1.')->group(function () {
 
         });
     });
+
+    Route::prefix('messenger')->name('messenger.')->middleware('auth:api')->group(function () {
+        Route::get('chats', [MessengerController::class, 'getChats'])->name('getChats');
+        Route::post('chats', [MessengerController::class, 'createChat'])->name('createChat');
+    });
 });
+
 
 
 

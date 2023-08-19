@@ -1,15 +1,15 @@
 <?php
 
-namespace App\DTO\Api\Auth;
+namespace App\DTO\Api\Messenger;
 
+use App\Domain\Messenger\Core\Entities\Range;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-class LoginDTO extends Data
+class CreateChatDTO extends Data
 {
     public function __construct(
-        public readonly string $email,
-        public readonly string $password,
+        public readonly int $user_id,
     )
     {
     }
@@ -18,8 +18,7 @@ class LoginDTO extends Data
     public static function rules(ValidationContext $context): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'user_id' => 'required|int|min:' . Range::MIN_USER_ID . '|max:' . Range::MAX_USER_ID,
         ];
     }
 
