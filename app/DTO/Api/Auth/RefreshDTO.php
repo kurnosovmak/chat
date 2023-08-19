@@ -1,6 +1,6 @@
 <?php
 
-namespace app\DTO\Api\Auth;
+namespace App\DTO\Api\Auth;
 
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;

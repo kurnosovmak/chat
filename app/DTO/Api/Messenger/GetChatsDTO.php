@@ -1,15 +1,15 @@
 <?php
 
-namespace App\DTO\Api\Auth;
+namespace App\DTO\Api\Messenger;
 
+use App\Domain\Messenger\Core\Entities\Range;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 
-class LoginDTO extends Data
+class GetChatsDTO extends Data
 {
     public function __construct(
-        public readonly string $email,
-        public readonly string $password,
+        public readonly bool $is_conversations = false,
     )
     {
     }
@@ -18,8 +18,7 @@ class LoginDTO extends Data
     public static function rules(ValidationContext $context): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string|min:8',
+            'is_conversations' => 'boolean',
         ];
     }
 

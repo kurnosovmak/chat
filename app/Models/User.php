@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,7 +46,8 @@ use Spatie\Sluggable\SlugOptions;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePatronymic($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static verified()
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
@@ -92,35 +95,40 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function scopeVerified(Builder $builder): void
+    {
+        $builder->where('email_verified_at', '<>', null);
+    }
+
     public function name(): Attribute
     {
         return Attribute::make(
-            set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
+            set: fn(string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
 
     public function family(): Attribute
     {
         return Attribute::make(
-            set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
+            set: fn(string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
 
     public function patronymic(): Attribute
     {
         return Attribute::make(
-            set: fn (string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
+            set: fn(string $newValue) => ucfirst(strtolower(str_replace(' ', '', ($newValue)))),
         );
     }
 
     public function firstCharNameAndFamily(): Attribute
     {
         return Attribute::make(
-            get: fn () => strtolower(substr($this->name, 0, 1) . $this->family),
+            get: fn() => strtolower(substr($this->name, 0, 1) . $this->family),
         );
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom(['first_char_name_and_family'])
