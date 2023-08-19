@@ -40,6 +40,8 @@ Route::prefix('v1')->name('v1.')->group(function () {
     Route::prefix('messenger')->name('messenger.')->middleware('auth:api')->group(function () {
         Route::get('chats', [MessengerController::class, 'getChats'])->name('getChats');
         Route::post('chats', [MessengerController::class, 'createChat'])->name('createChat');
+        Route::get('messages/history', [MessengerController::class, 'getHistory'])->name('messages.getHistory');
+        Route::post('messages', [MessengerController::class, 'sendMessage'])->name('messages.sendMessage');
     });
 });
 

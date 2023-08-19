@@ -52,6 +52,7 @@ final class ChatResource implements Arrayable
     {
         return [
             'id' => $chatInfo->getChatId()->getPeerId()->getId(),
+            'last_message' => $chatInfo->getLastMessageId()->getId(),
             'first_user_id' => $chatInfo->getFirstUserId()->getPeerId()->getId(),
             'second_user_id' => $chatInfo->getSecondUserId()->getPeerId()->getId(),
             'created_at' => $chatInfo->getCreatedAt()->format('Y-m-d h:i:s'),

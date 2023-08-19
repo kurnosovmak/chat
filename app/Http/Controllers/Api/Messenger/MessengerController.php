@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\Messenger;
 
 use App\Domain\Messenger\Core\Entities\ChatId;
+use App\Domain\Messenger\Core\Entities\MessageInfo;
 use App\Domain\Messenger\Core\Entities\PeerId;
 use App\Domain\Messenger\Core\Entities\UserId;
 use App\DTO\Api\Messenger\CreateChatDTO;
 use App\DTO\Api\Messenger\GetChatsDTO;
-use App\Http\Controllers\Controller;
+use App\DTO\Api\Messenger\GetHistoryDTO;
+use App\DTO\Api\Messenger\SendMessageDTO;
+use App\Http\Controllers\MessengerControllerBase;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use RuntimeException;
 
-final class MessengerController extends Controller
+final class MessengerController extends MessengerControllerBase
 {
     public function createChat(CreateChatDTO $createChatDTO): JsonResponse
     {
@@ -61,5 +64,47 @@ final class MessengerController extends Controller
         ]);
     }
 
+    public function getHistory(GetHistoryDTO $getHistoryDTO): JsonResponse
+    {
+        $messageInfos = $this->messageAdapter->getHistory(
+            $getHistoryDTO->chat_id,
+            $getHistoryDTO->message_id,
+            $getHistoryDTO->per,
+        );
+
+        $conversationIds = [];
+        foreach ($messageInfos as $messageInfo) {
+            $conversationIds[$messageInfo->userId->getPeerId()->getId()] = 1;
+        }
+
+        $conversationIds = array_keys($conversationIds);
+
+        $conversations = $this->getConversations($conversationIds);
+
+        return response()->json([
+            'data' => [$messageInfos],
+            ...$conversations,
+        ]);
+    }
+
+    public function sendMessage(SendMessageDTO $sendMessageDTO): JsonResponse
+    {
+        $chatId = $this->chatAdapter->findChatByChatId($sendMessageDTO->chat_id);
+        if ($chatId === null) {
+            throw new RuntimeException('Чат не найден');
+        }
+        $messageId = $this->messageAdapter->sendMessage(
+            $sendMessageDTO->chat_id,
+            userId(),
+            $sendMessageDTO->body,
+        );
+        if ($messageId === null) {
+            throw new RuntimeException('Ошибка при оправке сообщения');
+        }
+
+        return response()->json([
+            'data' => [$messageId->getId()],
+        ]);
+    }
 
 }
