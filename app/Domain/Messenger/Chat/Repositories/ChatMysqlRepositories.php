@@ -10,6 +10,7 @@ use App\Domain\Messenger\Chat\DTO\Chat\FindChatsByUserIdsQuery;
 use App\Domain\Messenger\Chat\Repositories\Contracts\ChatRepository;
 use App\Domain\Messenger\Core\Entities\ChatId;
 use App\Domain\Messenger\Core\Entities\ChatInfo;
+use App\Domain\Messenger\Core\Entities\MessageId;
 use App\Domain\Messenger\Core\Entities\UserId;
 use App\Domain\Messenger\Core\Errors\ErrorData;
 use App\Models\ChatBase;
@@ -89,6 +90,7 @@ class ChatMysqlRepositories implements ChatRepository
             $localIds[] = $localId;
         }
 
+        /** @var Chat[] $chatRows */
         $chatRows = $this->chat->getQueryBuilder()->findMany($localIds);
 
         $result = [];
@@ -108,8 +110,14 @@ class ChatMysqlRepositories implements ChatRepository
                 return [null, $error];
             }
 
+            [$messageId, $error] = MessageId::create($chatRow->last_message?->id ?? 0);
+            if ($error !== null) {
+                return [null, $error];
+            }
+
             $chatInfo = ChatInfo::create()
                 ->setChatId($chatId)
+                ->setLastMessageId($messageId)
                 ->setFirstUserId($firstUserId)
                 ->setSecondUserId($secondUserId)
                 ->setCreatedAt($chatRow->created_at)

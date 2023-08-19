@@ -8,13 +8,16 @@ class ChatInfo
 {
     private ?ChatId $chatId;
 
+    private ?MessageId $lastMessageId;
+
     private ?UserId $firstUserId;
     private ?UserId $secondUserId;
 
     private ?Carbon $createdAt;
     private ?Carbon $updatedAt;
 
-    public static function create(): self {
+    public static function create(): self
+    {
         return new self();
     }
 
@@ -104,6 +107,23 @@ class ChatInfo
     public function setUpdatedAt(Carbon $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    /**
+     * @return MessageId|null
+     */
+    public function getLastMessageId(): ?MessageId
+    {
+        return $this->lastMessageId;
+    }
+
+    /**
+     * @param MessageId $lastMessageId
+     */
+    public function setLastMessageId(MessageId $lastMessageId): self
+    {
+        $this->lastMessageId = $lastMessageId;
         return $this;
     }
 
