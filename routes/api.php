@@ -35,7 +35,8 @@ Route::prefix('v1')->name('v1.')->group(function () {
             Route::get('me', [ProfileController::class, 'me'])->name('me');
             Route::get('/', [ProfileController::class, 'searchByText'])->name('searchByText');
 
-            Route::post('updateMe', [ProfileController::class, 'updateMe'])->name('updateMe');
+            Route::post('update-me', [ProfileController::class, 'updateMe'])->name('updateMe');
+            Route::post('upload-avatar', [ProfileController::class, 'uploadAvatar'])->name('uploadAvatar');
         });
     });
 
