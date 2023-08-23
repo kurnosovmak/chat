@@ -1,0 +1,560 @@
+{
+	"info": {
+		"_postman_id": "a18061ea-0f6b-4fbf-80b9-ef195c3eab32",
+		"name": "ChatApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12399041"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"description": "Имя ",
+									"type": "text"
+								},
+								{
+									"key": "family",
+									"value": "",
+									"description": "Фамилия",
+									"type": "text"
+								},
+								{
+									"key": "patronymic",
+									"value": "",
+									"description": "Отчество(не обязательное поле)",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register resend email verify message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"description": "Имя ",
+									"type": "text"
+								},
+								{
+									"key": "family",
+									"value": "",
+									"description": "Фамилия",
+									"type": "text"
+								},
+								{
+									"key": "patronymic",
+									"value": "",
+									"description": "Отчество(не обязательное поле)",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/resend-code/{USER_ID}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"resend-code",
+								"{USER_ID}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register verify email",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"description": "Имя ",
+									"type": "text"
+								},
+								{
+									"key": "family",
+									"value": "",
+									"description": "Фамилия",
+									"type": "text"
+								},
+								{
+									"key": "patronymic",
+									"value": "",
+									"description": "Отчество(не обязательное поле)",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/register/email-verify/{VERIFY_TOKEN}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"email-verify",
+								"{VERIFY_TOKEN}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"description": "Имя ",
+									"type": "text"
+								},
+								{
+									"key": "family",
+									"value": "",
+									"description": "Фамилия",
+									"type": "text"
+								},
+								{
+									"key": "patronymic",
+									"value": "",
+									"description": "Отчество(не обязательное поле)",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/refresh",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "",
+									"description": "Имя ",
+									"type": "text"
+								},
+								{
+									"key": "family",
+									"value": "",
+									"description": "Фамилия",
+									"type": "text"
+								},
+								{
+									"key": "patronymic",
+									"value": "",
+									"description": "Отчество(не обязательное поле)",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/profile/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "messenger",
+			"item": [
+				{
+					"name": "getConversations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/messenger/chats",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messenger",
+								"chats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create Chat (личка)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "",
+									"description": "global id пользователя с которым нужно создать чат ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/messenger/chats",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messenger",
+								"chats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "messagesHistory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "",
+									"description": "global id пользователя с которым нужно создать чат ",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/messenger/messages/history?message_id=0&chat_id=0",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messenger",
+								"messages",
+								"history"
+							],
+							"query": [
+								{
+									"key": "per",
+									"value": "",
+									"description": "default 10 лимит кол-ва сообщений",
+									"disabled": true
+								},
+								{
+									"key": "message_id",
+									"value": "0",
+									"description": "Сообщение с которого начинается выборка истории"
+								},
+								{
+									"key": "chat_id",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sendMessage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "chat_id",
+									"value": "0",
+									"description": "global id чата (как личка так и группа так и канал)",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "тест",
+									"description": "Сообщение которое оправляется",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/messenger/messages",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"messenger",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://api.chat-up.online/api/v1",
+			"type": "string"
+		}
+	]
+}
