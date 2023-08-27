@@ -140,4 +140,17 @@ class User extends Authenticatable
     {
         return self::SLUG_NAME_FIELD;
     }
+
+    public function scopeSearch(Builder $query, string $text): void
+    {
+        if ($text === '') {
+            return;
+        }
+        $query->where(function (Builder $queryWhere) use ($text) {
+            $queryWhere->where('family', 'LIKE', $text.'%');
+            $queryWhere->orWhere('name', 'LIKE', $text.'%');
+            $queryWhere->orWhere('patronymic', 'LIKE', $text.'%');
+            $queryWhere->orWhere('email', 'LIKE', $text.'%');
+        });
+    }
 }

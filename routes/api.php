@@ -33,6 +33,7 @@ Route::prefix('v1')->name('v1.')->group(function () {
     Route::group(['middleware' => ['auth:api']], function () {
         Route::prefix('profile')->name('profile.')->group(function () {
             Route::get('me', [ProfileController::class, 'me'])->name('me');
+            Route::get('/', [ProfileController::class, 'searchByText'])->name('searchByText');
 
         });
     });
