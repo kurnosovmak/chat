@@ -13,6 +13,7 @@ use App\DTO\Api\Messenger\GetChatsDTO;
 use App\DTO\Api\Messenger\GetHistoryDTO;
 use App\DTO\Api\Messenger\SendMessageDTO;
 use App\Http\Controllers\MessengerControllerBase;
+use App\Http\Resources\Entities\MessageResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use RuntimeException;
@@ -82,7 +83,7 @@ final class MessengerController extends MessengerControllerBase
         $conversations = $this->getConversations($conversationIds);
 
         return response()->json([
-            'data' => [$messageInfos],
+            'data' => MessageResource::create($messageInfos)->toArray(),
             ...$conversations,
         ]);
     }
