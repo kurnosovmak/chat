@@ -17,6 +17,7 @@ use App\Models\ChatBase;
 use App\Models\ChatSub\Chat;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class ChatMysqlRepositories implements ChatRepository
 {
@@ -146,14 +147,13 @@ class ChatMysqlRepositories implements ChatRepository
 
         /** @var Chat $chat */
 
-        $chat = $this->chat->getQueryBuilder()->whereHas('users', function (Builder $builder) use ($minChatIdRow, $maxChatIdRow) {
-            $builder->groupBy('chat_user.chat_id')
-                ->havingRaw('COUNT(*) = 2')
-                ->having(function ($q) use ($minChatIdRow, $maxChatIdRow) {
-                    $q->having('chat_user.user_id', $maxChatIdRow);
-                    $q->orHaving('chat_user.user_id', $minChatIdRow);
-                });
-        })->first(['id']);
+        $chatIdRows = DB::select('SELECT chat_id as id  FROM chat_user where (user_id = ? or user_id = ?)  group by chat_id HAVING count(*) = 2',
+            [(int)($maxChatIdRow), (int)($minChatIdRow)]);
+        $chatIdRows = array_map(static fn($chatIdRow) => (int)$chatIdRow->id, $chatIdRows);
+        $chat = null;
+        if (count($chatIdRows) > 0) {
+            $chat = $this->chat->getQueryBuilder()->whereIn('id', $chatIdRows)->first(['id']);
+        }
 
         if ($chat === null) {
             return [null, null];
