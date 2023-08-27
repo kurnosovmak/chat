@@ -53,6 +53,9 @@ class MessengerControllerBase extends Controller
                 case (PeerIdType::ChatType):
                     $chatIds[$peerId->getId()] = true;
                     break;
+                case (PeerIdType::UserType):
+                    $userIds[$peerId->getId()] = true;
+                    break;
                 default:
                     // Todo error
                     break;

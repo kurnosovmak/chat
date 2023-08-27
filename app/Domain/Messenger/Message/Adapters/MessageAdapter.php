@@ -56,13 +56,13 @@ final class MessageAdapter
             throw new RuntimeException($error->message);
         }
 
-        [$chatId, $error] = $this->messageService->getHistory($getHistoryQuery);
+        [$chatIds, $error] = $this->messageService->getHistory($getHistoryQuery);
         if ($error !== null) {
             $this->logger->logErrorData($error);
             throw new RuntimeException($error->message);
         }
 
-        return $chatId;
+        return $chatIds;
     }
 
     /**
