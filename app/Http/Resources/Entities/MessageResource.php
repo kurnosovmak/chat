@@ -58,8 +58,8 @@ final class MessageResource implements Arrayable
             'sender_user' => $messageInfo->userId->getPeerId()->getId(),
             'body' => $messageInfo->body,
             'is_read' => $messageInfo->isRead,
-            'created_at' => $messageInfo->getCreatedAt()->format('Y-m-d h:i:s'),
-            'updated_at' => $messageInfo->getUpdatedAt()->format('Y-m-d h:i:s'),
+            'created_at' => $messageInfo->createdAt->format('Y-m-d h:i:s'),
+            'updated_at' => $messageInfo->updatedAt->format('Y-m-d h:i:s'),
         ];
     }
 }
