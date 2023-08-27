@@ -1,8 +1,7 @@
 <?php
 
-namespace App\DTO\Api\Messenger;
+namespace App\DTO\Api\Profile;
 
-use App\Domain\Messenger\Core\Entities\Range;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
 

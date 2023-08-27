@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\Profile;
 
-use App\DTO\Api\Messenger\SearchByTextDTO;
+use App\DTO\Api\Profile\SearchByTextDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Entities\ProfileResource;
 use App\Models\User;
