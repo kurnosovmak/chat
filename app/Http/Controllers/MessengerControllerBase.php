@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Domain\Messenger\Chat\Adapters\ChatAdapter;
 use App\Domain\Messenger\Core\Entities\ChatInfo;
 use App\Domain\Messenger\Core\Entities\PeerId;
+use App\Domain\Messenger\Core\Entities\Range;
 use App\Domain\Messenger\Core\Enums\PeerIdType;
 use App\Domain\Messenger\Message\Adapters\MessageAdapter;
 use App\Http\Resources\Entities\ChatResource;
@@ -76,6 +77,7 @@ class MessengerControllerBase extends Controller
         $userInfos = [];
         $users = collect();
         if (count($chatIds) !== 0) {
+            $userIds = array_map(static fn($userId) => $userId - Range::MIN_USER_ID, $userIds);
             $users = User::findMany($userIds);
         }
 
