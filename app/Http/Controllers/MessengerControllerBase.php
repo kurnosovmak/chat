@@ -79,11 +79,10 @@ class MessengerControllerBase extends Controller
         // Это костыль
         $userInfos = [];
         $users = collect();
-        if (count($chatIds) !== 0) {
-            $userIds = array_map(static fn($userId) => $userId - Range::MIN_USER_ID, $userIds);
+        if (count($userIds) !== 0) {
+            $userIds = array_map(static fn($userId) => ($userId - Range::MIN_USER_ID), $userIds);
             $users = User::findMany($userIds);
         }
-
 
         return [
             'users' => ProfileResource::collection($users)->keyBy(fn(ProfileResource $resource) => $resource->getGlobalUserId()),
