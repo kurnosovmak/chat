@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Profile;
 
-use app\DTO\Api\Profile\UpdateDTO;
+use App\DTO\Api\Profile\UpdateDTO;
 use App\Models\Images;
 use App\Models\User;
 use App\Services\ImageService;

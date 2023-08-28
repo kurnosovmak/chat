@@ -6,12 +6,9 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use App\Services\Auth\DTO\TokenDTO;
-use http\Exception\RuntimeException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Validation\ValidationException;
-use Psy\Exception\ThrowUpException;
 
 final class PassportAuth implements AuthContract
 {

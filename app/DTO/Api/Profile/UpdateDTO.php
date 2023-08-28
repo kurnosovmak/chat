@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace app\DTO\Api\Profile;
+namespace App\DTO\Api\Profile;
 
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Support\Validation\ValidationContext;
-use App\Models\User;
 
 class UpdateDTO extends Data
 {

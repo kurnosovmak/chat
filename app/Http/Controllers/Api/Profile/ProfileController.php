@@ -9,15 +9,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Entities\ProfileResource;
 use App\Models\User;
 use App\Services\Profile\ProfileService;
-use http\Exception\RuntimeException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Images;
 use App\DTO\Api\Profile\UpdateDTO;
 use Illuminate\Support\Facades\Validator;
+use RuntimeException;
 
 final class ProfileController extends Controller
 {
