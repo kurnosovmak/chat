@@ -81,7 +81,7 @@ class MessengerControllerBase extends Controller
         $users = collect();
         if (count($userIds) !== 0) {
             $userIds = array_map(static fn($userId) => ($userId - Range::MIN_USER_ID), $userIds);
-            $users = User::findMany($userIds);
+            $users = User::with('avatar')->findMany($userIds);
         }
 
         return [

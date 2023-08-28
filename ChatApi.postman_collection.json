@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a18061ea-0f6b-4fbf-80b9-ef195c3eab32",
+		"_postman_id": "be15c226-1010-4377-97f5-f1d3964ee21a",
 		"name": "ChatApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "12399041"
+		"_exporter_id": "28745380"
 	},
 	"item": [
 		{
@@ -365,6 +365,130 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "search",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/profile/?text=Ars",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile",
+								""
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": "Ars"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Arsen\",\r\n    \"family\": \"Mikailov\",\r\n    \"patronymic\": \"1212\"\r\n\r\n}"
+						},
+						"url": {
+							"raw": "{{url}}/profile/update-me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile",
+								"update-me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadAvatar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ars04/Downloads/avatar1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/profile/uploadAvatar",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"profile",
+								"uploadAvatar"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -530,6 +654,16 @@
 			]
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIyIiwianRpIjoiNjIwMDU4OWU3M2YyMWFlNGNjZmYyNTI0ZGMzMzIzOGFmMTlmNmQzMGNlNGFlZDIyZWQxNGQ1NDRlMmJiZTZiMTdlZjRiYzIwYTY4ZWY3YjIiLCJpYXQiOjE2OTMyMDg5MzAuMjI4NDg5LCJuYmYiOjE2OTMyMDg5MzAuMjI4NDksImV4cCI6MTY5MzIxMjUzMC4yMDYxNDMsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.fVKL5Umo5RSuNHErQfGRdgx03MGWu5wdVVcMqug4LPvdBfgHGJHnj4LTc2Ltb3dEuTey1w7Od8j7mHbhdmHswsbC6PrivLpnlLqTwPHZmKrBbBZDi6nzFuHSvQAP8E6lKqNOLCiiEjrbvgvzrTYjjf1SO0pCPfXwmKEb8sIYc5WBl5yfGCRgtxT-jzpHjyWzN62Mls5TLuAIM72L4z-Yx4PAwLshSY2pL5KpiRQs7M9gWhu8Ay4ceEL67XsQI8T15BMkURd0YvnTkS739LbL6j0jsNdpc962NZVGPxlfIhMAk39CTOGwjrVmrbapxdviRY49WYQvVPIUep3aXjeJU8tB7UqVuay9EK56E-WxhmdLCQQ7qvl5n3BqQK1AB-_w9pbTFm6G8B5RwEzl462FyMyRORALAOYLG-sus7gcshbiOUMhu0o2DWdHv_miTHOkEq104FsWGfCuluq3I-AhhAhnFOTpeaGf3Wxk-qYzLNSVvhTcseO7Pv_P3MYhFLiEtc7SIedas3s7F9yveafaY0B8mLDxI2YYFYeTXbyfURLRdYfD2a8kg5XFcgQj0NgFoh6K9bQ_ppM80Z4qOv9BpDnmSH3jCZvrRxhmj1EwaHmo62JigKBlLwfcpocCRit9pkJYgSTN05X-zt3PogG3kPBp3r3jH1vornKzFhmZhSw",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",

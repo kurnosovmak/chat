@@ -9,22 +9,30 @@ use App\Enums\RoleEnum;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 final class ProfileResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-
-
         return [
             'id' => $this->getGlobalUserId(),
             'name' => $this->name,
             'family' => $this->family,
             'patronymic' => $this->patronymic,
             'email' => $this->email,
+            'image' => $this->getUrlImage(),
             'roles' => $this->when(!$this->resource instanceof Arrayable, $this->getRoles()),
         ];
+    }
+
+    private function getUrlImage(): ?string
+    {
+        $image = $this->avatar->first();
+        if ($image === null){
+            return null;
+        }
+        return config('app.url').Storage::url('public/images/'.$image->name);
     }
 
     public function getGlobalUserId(): int
