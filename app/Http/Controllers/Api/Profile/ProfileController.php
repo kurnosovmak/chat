@@ -59,7 +59,7 @@ final class ProfileController extends Controller
 
     public function searchByText(SearchByTextDTO $searchByTextDTO): JsonResource
     {
-        $profiles = User::verified()->search($searchByTextDTO->text)->limit(10)->get();
+        $profiles = User::verified()->search($searchByTextDTO->text)->where('id', '<>', Auth::id())->limit(10)->get();
         return ProfileResource::collection($profiles);
     }
 }
